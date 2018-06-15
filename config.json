@@ -1,0 +1,6 @@
+{
+  "PORT": 2000,
+  "DB_NAME": "book-exchange",
+  "DB_USER": "book-exchange-admin",
+  "DB_PASSWORD": "book-1234"
+}
