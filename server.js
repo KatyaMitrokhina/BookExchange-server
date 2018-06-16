@@ -12,6 +12,12 @@ app.use(logger('dev'));                 //Логгер
 app.use(bodyParser());
 //app.use(app.router);
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 
 app.get('/api', function (req, res) {
@@ -21,6 +27,7 @@ app.get('/api', function (req, res) {
 app.get('/api/books', function(request, response) {
     return BookModel.find(function (err, books) {
         if (!err) {
+            response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
             return response.send(books);
         } else {
             response.statusCode = 500;
@@ -31,15 +38,18 @@ app.get('/api/books', function(request, response) {
 });
 
 app.post('/api/books', function(request, response) {
+    debugger;
+    console.log(request);
     var book = new BookModel({
         title: request.body.title,
         author: request.body.author,
         genre: request.body.genre,
         description: request.body.description,
-        pictureUrl: request.pictureUrl,
+        pictureUrl: request.body.pictureUrl,
         images: request.body.images,
-        bookOwner: request.bookOwner
+        bookOwner: request.body.bookOwner
     });
+    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     book.save(function (err) {
         if (!err) {
@@ -49,12 +59,14 @@ app.post('/api/books', function(request, response) {
             console.log(err);
             response.statusCode = 500;
             response.send({ error: 'Server error' });
+            response.request = request;
             console.log('Internal error(%d): %s',response.statusCode,err.message);
         }
     });
 });
 
 app.get('/api/books/:id', function(request, response) {
+    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     return BookModel.findById(request.params.id, function (err, book) {
         if(!book) {
             response.statusCode = 404;

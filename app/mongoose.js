@@ -25,9 +25,9 @@ var Owner = new mongoose.Schema({
 });
 
 var Book = new mongoose.Schema({
+    // _id: { type: String, required: true },
     title: { type: String, required: true },
     author: { type: String, required: true },
-    genre: {type: String, required: false},
     description: { type: String, required: true },
     pictureUrl: { type: String, required: true },
     bookOwner: [Owner],
