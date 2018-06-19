@@ -1,17 +1,13 @@
 var mongoose = require('mongoose');
 var config = require('./config.js');
 
-var DB_NAME = "book-exchange";
-var DB_USERNAME = "book-exchange-admin";
-var DB_PASSWORD = "book-1234";
-
-mongoose.connect('mongodb://'+ config.get('DB_USER') + ':' + config.get('DB_PASSWORD') + '@localhost/' + config.get('DB_NAME'));
+mongoose.connect('mongodb://'+ config.get('DB_USER') + ':' + config.get('DB_PASSWORD') + config.get('DB_ADDRESS_PORT') + '/' + config.get('DB_NAME'));
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback () {
-    console.log("Connected to database '" + DB_NAME + "'!");
+    console.log("Connected to database '" + config.get('DB_NAME') + "'!");
 });
 
 var Schema = mongoose.Schema;

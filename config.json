@@ -1,6 +1,7 @@
 {
   "PORT": 2000,
-  "DB_NAME": "book-exchange",
+  "DB_ADDRESS_PORT": "@ds263460.mlab.com:63460",
+  "DB_NAME": "heroku_02z3gnxg",
   "DB_USER": "book-exchange-admin",
   "DB_PASSWORD": "book-1234"
 }
