@@ -27,7 +27,7 @@ app.get('/api', function (req, res) {
 app.get('/api/books', function(request, response) {
     return BookModel.find(function (err, books) {
         if (!err) {
-            response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+            response.setHeader('Access-Control-Allow-Origin', '*');
             return response.send(books);
         } else {
             response.statusCode = 500;
@@ -47,7 +47,7 @@ app.post('/api/books', function(request, response) {
         images: request.body.images,
         bookOwner: request.body.bookOwner
     });
-    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    response.setHeader('Access-Control-Allow-Origin', '*');
 
     book.save(function (err) {
         if (!err) {
@@ -64,7 +64,7 @@ app.post('/api/books', function(request, response) {
 });
 
 app.get('/api/books/:id', function(request, response) {
-    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    response.setHeader('Access-Control-Allow-Origin', '*');
     return BookModel.findById(request.params.id, function (err, book) {
         if(!book) {
             response.statusCode = 404;
